@@ -1,19 +1,16 @@
-// Adicionei estas variáveis globais no início do arquivo
 let gameStarted = false;
 let canvas, ctx;
 let nave;
 let asteroids = [];
 let tiros = [];
-let naveInimiga = null;     // Adicione esta linha
-let tirosInimigos = [];     // Adicione esta linha
-let ultimoPontoSpawn = 0;   // Mova para cá
-let teclas;                 // Mova para cá
-let ultimoSpawnNaveInimiga = 0; // Adicione no início do arquivo junto com as outras variáveis globais
-
-// O resto das variáveis globais
+let naveInimiga = null;     
+let tirosInimigos = [];     
+let ultimoPontoSpawn = 0;   
+let teclas;                 
+let ultimoSpawnNaveInimiga = 0;
 let vidas = 3;
 let podeAtirar = true;
-let delayTiro = 250; // 250ms entre tiros
+let delayTiro = 250; 
 let imagens = {
     background: null,
     nave: null,
@@ -24,12 +21,12 @@ let imagens = {
 };
 let pontuacao = 0;
 let invencivel = false;
-const TEMPO_INVENCIBILIDADE = 2000; // 2 segundos de invencibilidade após ser atingido
+const TEMPO_INVENCIBILIDADE = 2000;
 
-// Modifiquei as configurações do jogo
+// CONFIGURAÇÕES DO JOGO
 const NAVE_TAMANHO = 20;
-const VELOCIDADE_NAVE = 0.2; // Reduzido para melhor controle com inércia
-const VELOCIDADE_TIRO = 10;
+const VELOCIDADE_NAVE = 0.2;
+const VELOCIDADE_TIRO = 15;
 const VELOCIDADE_ROTACAO = 5;
 
 const TAMANHO_ASTEROIDE = {
@@ -40,21 +37,20 @@ const TAMANHO_ASTEROIDE = {
 
 // Configurações para asteroides
 const ASTEROIDE_CONFIG = {
-    velocidadeMin: 0.5, // Era 1
-    velocidadeMax: 2,   // Era 5
+    velocidadeMin: 0.5,
+    velocidadeMax: 2,
     spawn: {
         intervaloMin: 2000,
         intervaloMax: 5000
     }
 };
 
-// Adicionei no início do arquivo junto com as outras constantes
 const NAVE_INIMIGA = {
-    tamanho: 30,         // Aumentado de 20 para 30
-    velocidade: 3,       // Aumentado de 2 para 3
-    velocidadeTiro: 5,
-    alcanceTiro: 200, // Distância máxima do tiro
-    delayTiro: 500
+    tamanho: 30,
+    velocidade: 3,
+    velocidadeTiro: 10,
+    alcanceTiro: 800,
+    delayTiro: 250
 };
 
 // Inicialização quando o documento estiver pronto
@@ -66,7 +62,6 @@ $(document).ready(function() {
     $('#inicio').on('click', startGame);
 });
 
-// Modifiquei a função startGame para incluir o carregamento de imagens
 async function startGame() {
     if (!gameStarted) {
         console.log('Iniciando jogo...');
@@ -92,7 +87,6 @@ async function startGame() {
     }
 }
 
-// Adicionei esta função para carregar imagens
 function carregarImagens() {
     return new Promise((resolve) => {
         const imageUrls = {
@@ -144,9 +138,9 @@ function carregarImagens() {
     });
 }
 
-// Adicionei as constantes de pontuação
+
 const PONTUACAO = {
-    pequeno: 10,
+    pequeno: 15,
     medio: 20,
     grande: 40
 };
