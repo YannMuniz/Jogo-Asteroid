@@ -145,14 +145,13 @@ const PONTUACAO = {
     grande: 40
 };
 
-// Modifiquei a função inicializarJogo
 function inicializarJogo() {
     vidas = 3;
     pontuacao = 0;
     ultimoPontoSpawn = 0;
-    ultimoSpawnNaveInimiga = 0; // Modifique a função inicializarJogo para resetar esta variável
-    naveInimiga = null;     // Adicione esta linha
-    tirosInimigos = [];     // Adicione esta linha
+    ultimoSpawnNaveInimiga = 0; 
+    naveInimiga = null;
+    tirosInimigos = [];
     
     nave = {
         x: canvas.width / 2,
@@ -169,7 +168,6 @@ function inicializarJogo() {
     criarAsteroides(3);
 }
 
-// Modifiquei a função setupControles
 function setupControles() {
     const teclas = {
         w: false,
@@ -195,7 +193,6 @@ function setupControles() {
         }
     });
 
-    // Adiciona função para verificar tiro
     teclas.verificarTiro = function() {
         const agora = Date.now();
         if (teclas[' '] && agora - ultimoTiro >= delayTiro) {
@@ -207,7 +204,6 @@ function setupControles() {
     return teclas;
 }
 
-// Modifiquei a função atirar
 function atirar() {
     const angulo = nave.angulo * Math.PI / 180;
     tiros.push({
@@ -267,7 +263,6 @@ function criarAsteroideAleatorio() {
     };
 }
 
-// Modifiquei a função criarAsteroides
 function criarAsteroides(quantidade) {
     for (let i = 0; i < quantidade; i++) {
         asteroids.push(criarAsteroideAleatorio());
@@ -282,7 +277,6 @@ function asteroideForaDaTela(asteroide) {
             asteroide.y > canvas.height + asteroide.tamanho * 2);
 }
 
-// Adicionei esta função para verificar colisões
 function verificarColisoes() {
     // Colisão entre tiros e asteroides
     for (let i = tiros.length - 1; i >= 0; i--) {
@@ -375,7 +369,6 @@ function verificarColisoes() {
     }
 }
 
-// Modifiquei a função criarAsteroideMenor
 function criarAsteroideMenor(asteroideOriginal, novoTipo, quantidade) {
     for (let i = 0; i < quantidade; i++) {
         const velocidade = random(1, 3);
@@ -450,7 +443,7 @@ function draw() {
         ctx.fill();
     });
     
-    // Desenhar tiros inimigos (adicione antes de desenhar a nave)
+    // Desenhar tiros inimigos
     ctx.fillStyle = 'yellow'; // Cor amarela para tiros inimigos
     tirosInimigos.forEach(tiro => {
         ctx.beginPath();
@@ -479,7 +472,7 @@ function draw() {
                 NAVE_TAMANHO * 2, NAVE_TAMANHO * 2 
             );
         } else {
-            // Fallback colorido (mantém o existente)
+            // Fallback colorido
             ctx.strokeStyle = invencivel ? 'rgba(255, 255, 255, 0.5)' : 'white';
             ctx.fillStyle = invencivel ? 'rgba(0, 255, 255, 0.5)' : 'cyan';
             ctx.lineWidth = 2;
@@ -496,7 +489,7 @@ function draw() {
     }
     ctx.restore();
     
-    // Desenhar nave inimiga (adicione antes de desenhar a UI)
+    // Desenha nave inimiga
     if (naveInimiga) {
         desenharNaveInimiga();
     }
@@ -541,7 +534,6 @@ function desenharAsteroide(asteroide) {
     ctx.restore();
 }
 
-// Modifiquei a função update para incluir verificação de colisões
 function update() {
     if (!gameStarted) return;
 
@@ -591,7 +583,8 @@ function update() {
         asteroide.y += asteroide.dy;
         asteroide.rotacao += asteroide.velocidadeRotacao;
 
-        // Faz os asteroides atravessarem a tela como a nave
+        // Faz os asteroid
+        // es atravessarem a tela como a nave
         asteroide.x = (asteroide.x + canvas.width) % canvas.width;
         asteroide.y = (asteroide.y + canvas.height) % canvas.height;
     }
@@ -673,7 +666,7 @@ function update() {
         naveInimiga.y = (naveInimiga.y + canvas.height) % canvas.height;
     }
 
-    // Modifiquei a parte dos tiros da nave principal para atravessar a tela
+    // Tiros da nave principal para atravessar a tela
     for (let i = tiros.length - 1; i >= 0; i--) {
         tiros[i].x = (tiros[i].x + canvas.width) % canvas.width;
         tiros[i].y = (tiros[i].y + canvas.height) % canvas.height;
